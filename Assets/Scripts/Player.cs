@@ -13,16 +13,13 @@ public class Player : MonoBehaviour
     private float speed;
     Rigidbody2D rigid;
     SpriteRenderer spriter;
+    Animator anim;
     
     private void Awake() 
     {
         rigid = GetComponent<Rigidbody2D>();
         spriter = GetComponent<SpriteRenderer>();
-    }
-
-    void Update()
-    {
-
+        anim = GetComponent<Animator>();
     }
 
     void OnMove(InputValue value)
@@ -40,6 +37,9 @@ public class Player : MonoBehaviour
 
     private void LateUpdate()
     {
+        anim.SetFloat("Speed", inputVec.magnitude);
+        
+        
         if(inputVec.x != 0)
         {
             spriter.flipX = (inputVec.x < 0) ? true : false;
