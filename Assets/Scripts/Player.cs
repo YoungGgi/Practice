@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -18,11 +19,11 @@ public class Player : MonoBehaviour
 
     }
 
-    void Update()
+    void OnMove(InputValue value)
     {
-        inputVec.x = Input.GetAxisRaw("Horizontal");
-        inputVec.y = Input.GetAxisRaw("Vertical");
+        inputVec = value.Get<Vector2>();
     }
+
 
     private void FixedUpdate() 
     {
