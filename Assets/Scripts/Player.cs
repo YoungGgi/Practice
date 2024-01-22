@@ -8,6 +8,12 @@ public class Player : MonoBehaviour
     
     [SerializeField]
     private Vector2 inputVec;
+
+    public Vector2 GetInputVec
+    {
+        get {return inputVec;}
+        set {inputVec = value;}
+    }
     
     [SerializeField]
     private float speed;
