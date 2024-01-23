@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    // 인풋 시스템 메소드
     void OnMove(InputValue value)
     {
         inputVec = value.Get<Vector2>();
