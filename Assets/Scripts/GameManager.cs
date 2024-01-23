@@ -12,7 +12,18 @@ public class GameManager : MonoBehaviour
     public Player GetPlayer
     {
         get{ return player;}
-        set{ player = value;}
+        //set{ player = value;}
+    }
+
+
+
+    [SerializeField]
+    private PoolManager pool;
+
+    public PoolManager GetPool
+    {
+        get{ return pool; } 
+        //set{ pool = value;}
     }
     
 
