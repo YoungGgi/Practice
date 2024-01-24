@@ -8,17 +8,25 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float speed;
     [SerializeField]
+    private float health;
+    [SerializeField]
+    private float maxHealth;
+    [SerializeField]
+    private RuntimeAnimatorController[] animCon;
+    [SerializeField]
     private Rigidbody2D target;
 
-    private bool isLive = true;
+    private bool isLive;
     
     Rigidbody2D rigid;
+    Animator anim;
     SpriteRenderer spriter;
 
     
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         spriter = GetComponent<SpriteRenderer>();
     }
 
@@ -49,6 +57,16 @@ public class Enemy : MonoBehaviour
     private void OnEnable() 
     {
         target = GameManager.instance.GetPlayer.GetComponent<Rigidbody2D>();
+        isLive = true;
+        health = maxHealth;
+    }
+
+    public void Init(SpawnData data)
+    {
+        anim.runtimeAnimatorController = animCon[data.SpriteType];
+        speed = data.Speed;
+        maxHealth = data.Health;
+        health = data.Health;
     }
 
 }
