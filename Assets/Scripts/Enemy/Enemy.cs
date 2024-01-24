@@ -69,4 +69,29 @@ public class Enemy : MonoBehaviour
         health = data.Health;
     }
 
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        if(!other.CompareTag("Bullet"))
+        {
+            return;
+        }
+
+        health -= other.GetComponent<Bullet>().Damage;
+
+        if(health > 0)
+        {
+            
+        }
+        else
+        {
+            Dead();
+        }
+
+    }
+
+    void Dead()
+    {
+        gameObject.SetActive(false);
+    }
+
 }
