@@ -14,6 +14,14 @@ public class Player : MonoBehaviour
         get {return inputVec;}
         set {inputVec = value;}
     }
+
+    [SerializeField]
+    private Scanner scanner;
+
+    public Scanner Scan
+    {
+        get {return scanner;}
+    }
     
     [SerializeField]
     private float speed;
@@ -23,6 +31,7 @@ public class Player : MonoBehaviour
     
     private void Awake() 
     {
+        scanner = GetComponent<Scanner>();
         rigid = GetComponent<Rigidbody2D>();
         spriter = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
