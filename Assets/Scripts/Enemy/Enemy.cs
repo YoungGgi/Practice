@@ -22,12 +22,14 @@ public class Enemy : MonoBehaviour
     Animator anim;
     SpriteRenderer spriter;
 
+    WaitForFixedUpdate wait;
     
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spriter = GetComponent<SpriteRenderer>();
+        wait = new WaitForFixedUpdate();
     }
 
     // 물리 이동
@@ -36,7 +38,9 @@ public class Enemy : MonoBehaviour
     // 해당 값들(rigid.position + nextVec)을 토대로 물리 연산
     private void FixedUpdate() 
     {
-        if(!isLive)
+        // GetCurrentAnimatorStateInfo() => 현재 작동 중인 애니메이터의 상태 확인, 매개변수로 애니메이터의 레이어(base layer = 0)
+        // .IsName() => 현재 작동중인 애니메이션의 이름 입력
+        if(!isLive || anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
           return;
         
         Vector2 dirVec = target.position - rigid.position;
@@ -78,9 +82,12 @@ public class Enemy : MonoBehaviour
 
         health -= other.GetComponent<Bullet>().Damage;
 
+        // 피격시 넉백 효과
+        StartCoroutine(KnockBack());
+
         if(health > 0)
         {
-            
+            anim.SetTrigger("Hit");
         }
         else
         {
@@ -92,6 +99,14 @@ public class Enemy : MonoBehaviour
     void Dead()
     {
         gameObject.SetActive(false);
+    }
+
+    IEnumerator KnockBack()
+    {
+        yield return wait;
+        Vector3 playerPos = GameManager.instance.GetPlayer.transform.position;
+        Vector3 dirVec = transform.position - playerPos;
+        rigid.AddForce(dirVec.normalized * 3, ForceMode2D.Impulse);  // 순간적인 움직임을 구현 = ForceMode2D.Impulse
     }
 
 }
