@@ -49,7 +49,7 @@ public class Weapon : MonoBehaviour
 
         if(Input.GetButtonDown("Jump"))
         {
-            LevelUp(20, 7);
+            LevelUp(10, 7);
         }
 
     }
