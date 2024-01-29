@@ -33,9 +33,18 @@ public class GameManager : MonoBehaviour
     {
         get {return gameTime;}
     }
+
+    public float MaxGameTime
+    {
+        get {return maxGameTime;}
+    }
     
 
     [Header("# Player Control")]
+    [SerializeField]
+    private int health;
+    [SerializeField]
+    private int maxHealth = 100;
     [SerializeField]
     private int level;
     [SerializeField]
@@ -44,6 +53,17 @@ public class GameManager : MonoBehaviour
     private int exp;
     [SerializeField]
     private int[] nextExp = {3, 5, 10, 100, 150, 210, 280, 360, 450, 600};
+
+
+    public int GetHealth
+    {
+        get {return health;}
+    }
+
+    public int GetMaxHealth
+    {
+        get {return maxHealth;}
+    }
 
     public int GetLevel
     {
@@ -69,6 +89,11 @@ public class GameManager : MonoBehaviour
     private void Awake() 
     {
         instance = this;
+    }
+
+    private void Start() 
+    {
+        health = maxHealth;
     }
 
     private void Update() 
