@@ -45,10 +45,25 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int[] nextExp = {3, 5, 10, 100, 150, 210, 280, 360, 450, 600};
 
+    public int GetLevel
+    {
+        get {return level;}
+    }
+    
+    public int Get_Exp
+    {
+        get {return exp;}
+    }
+
     public int GetKill
     {
         get {return kill;}
         set {kill = value;}
+    }
+
+    public int[] GetNextExp
+    {
+        get {return nextExp;}
     }
 
     private void Awake() 
