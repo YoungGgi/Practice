@@ -25,6 +25,13 @@ public class Player : MonoBehaviour
     
     [SerializeField]
     private float speed;
+
+    public float GetPlayerSpeed
+    {
+        get {return speed;}
+        set {speed = value;}
+    }
+
     Rigidbody2D rigid;
     SpriteRenderer spriter;
     Animator anim;
