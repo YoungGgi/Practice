@@ -19,6 +19,27 @@ public class ItemData : ScriptableObject
     [SerializeField]
     private Sprite itemIcon;
 
+    public int GetItemID
+    {
+        get {return itemID;}
+    }
+
+    public string GetItemName
+    {
+        get {return itemName;}
+    }
+
+    public string GetItemDesc
+    {
+        get {return itemDesc;}
+    }
+
+
+    public Sprite GetItemIcon
+    {
+        get { return itemIcon;}
+    }
+
 
     [Header("# Level Data")]
     [SerializeField]
@@ -30,8 +51,33 @@ public class ItemData : ScriptableObject
     [SerializeField]
     private int[] counts;
 
+    public float GetBaseDamage
+    {
+        get {return baseDamage;}
+    }
+
+    public int GetBaseCount
+    {
+        get {return baseCount;}
+    }
+
+    public float[] GetDamages
+    {
+        get {return damages;}
+    }
+
+    public int[] GetCounts
+    {
+        get {return counts;}
+    }
+
     [Header("# Weapon")]
     [SerializeField]
     private GameObject projectile;
+
+    public GameObject GetProjectile
+    {
+        get {return projectile;}
+    }
 
 }

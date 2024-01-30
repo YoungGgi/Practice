@@ -15,18 +15,22 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private float speed;
 
+    public float GetDamage
+    {
+        get {return damage;}
+    }
+
+    public int GetCount
+    {
+        get {return count;}
+    }
+
     float timer;
     Player player;
 
     private void Awake() 
     {
-        player = GetComponentInParent<Player>();
-    }
-
-
-    private void Start() 
-    {
-        Init();
+        player = GameManager.instance.GetPlayer;
     }
 
     void Update()
@@ -65,8 +69,26 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    public void Init()
+    public void Init(ItemData data)
     {
+        // 무기 레벨업 버튼 클릭 시 Weapon 정보를 할당
+        name = $"Weapon {data.GetItemID}";
+        transform.parent = player.transform;
+        transform.localPosition = Vector3.zero;
+
+        id = data.GetItemID;
+        damage = data.GetBaseDamage;
+        count = data.GetBaseCount;
+
+        for(int i = 0; i < GameManager.instance.GetPool.GetPrefabs.Length; i++)
+        {
+            if(data.GetProjectile == GameManager.instance.GetPool.GetPrefabs[i])
+            {
+                prefabID = i;
+                break;
+            }
+        }
+        
         switch(id)
         {
             case 0:
@@ -74,7 +96,7 @@ public class Weapon : MonoBehaviour
                 Batch();
                 break;
             default:
-                speed = 0.3f;
+                speed = 0.4f;
                 break;
         }
     }
