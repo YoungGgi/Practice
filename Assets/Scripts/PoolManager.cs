@@ -9,6 +9,11 @@ public class PoolManager : MonoBehaviour
     [SerializeField]
     private GameObject[] prefabs;
 
+    public GameObject[] GetPrefabs
+    {
+        get {return prefabs;}
+    }
+
     // 풀 담당을 하는 리스트들
     List<GameObject>[] pools;
 

@@ -15,18 +15,33 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private float speed;
 
+    public int GetWeaponID
+    {
+        get {return id;}
+    }
+
+    public float GetDamage
+    {
+        get {return damage;}
+    }
+
+    public int GetCount
+    {
+        get {return count;}
+    }
+
+    public float GetWeaponSpeed
+    {
+        get {return speed;}
+        set {speed = value;}
+    }
+
     float timer;
     Player player;
 
     private void Awake() 
     {
-        player = GetComponentInParent<Player>();
-    }
-
-
-    private void Start() 
-    {
-        Init();
+        player = GameManager.instance.GetPlayer;
     }
 
     void Update()
@@ -63,10 +78,30 @@ public class Weapon : MonoBehaviour
         {
             Batch();
         }
+
+        player.BroadcastMessage("ApplyGear", SendMessageOptions.DontRequireReceiver);
     }
 
-    public void Init()
+    public void Init(ItemData data)
     {
+        // 무기 레벨업 버튼 클릭 시 Weapon 정보를 할당
+        name = $"Weapon {data.GetItemID}";
+        transform.parent = player.transform;
+        transform.localPosition = Vector3.zero;
+
+        id = data.GetItemID;
+        damage = data.GetBaseDamage;
+        count = data.GetBaseCount;
+
+        for(int i = 0; i < GameManager.instance.GetPool.GetPrefabs.Length; i++)
+        {
+            if(data.GetProjectile == GameManager.instance.GetPool.GetPrefabs[i])
+            {
+                prefabID = i;
+                break;
+            }
+        }
+        
         switch(id)
         {
             case 0:
@@ -74,9 +109,13 @@ public class Weapon : MonoBehaviour
                 Batch();
                 break;
             default:
-                speed = 0.3f;
+                speed = 0.4f;
                 break;
         }
+
+        // BroadcastMessage() => 특정 메소드 호출을 모든 자식에게 방송하는 메소드
+        // SendMessageOptions.DontRequireReceiver => 꼭 리시버가 필요하지 않음 => 장갑, 장화가 없을때 해당 메소드를 반드시 방송할 필요 없다?
+        player.BroadcastMessage("ApplyGear", SendMessageOptions.DontRequireReceiver);
     }
 
     void Batch()
