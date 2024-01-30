@@ -15,6 +15,11 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private float speed;
 
+    public int GetWeaponID
+    {
+        get {return id;}
+    }
+
     public float GetDamage
     {
         get {return damage;}
@@ -23,6 +28,12 @@ public class Weapon : MonoBehaviour
     public int GetCount
     {
         get {return count;}
+    }
+
+    public float GetWeaponSpeed
+    {
+        get {return speed;}
+        set {speed = value;}
     }
 
     float timer;
@@ -67,6 +78,8 @@ public class Weapon : MonoBehaviour
         {
             Batch();
         }
+
+        player.BroadcastMessage("ApplyGear", SendMessageOptions.DontRequireReceiver);
     }
 
     public void Init(ItemData data)
@@ -99,6 +112,10 @@ public class Weapon : MonoBehaviour
                 speed = 0.4f;
                 break;
         }
+
+        // BroadcastMessage() => 특정 메소드 호출을 모든 자식에게 방송하는 메소드
+        // SendMessageOptions.DontRequireReceiver => 꼭 리시버가 필요하지 않음 => 장갑, 장화가 없을때 해당 메소드를 반드시 방송할 필요 없다?
+        player.BroadcastMessage("ApplyGear", SendMessageOptions.DontRequireReceiver);
     }
 
     void Batch()

@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
     public int GetHealth
     {
         get {return health;}
+        set {health = value;}
     }
 
     public int GetMaxHealth
