@@ -15,6 +15,7 @@ public class ItemData : ScriptableObject
     [SerializeField]
     private string itemName;
     [SerializeField]
+    [TextArea]
     private string itemDesc;
     [SerializeField]
     private Sprite itemIcon;
@@ -74,10 +75,17 @@ public class ItemData : ScriptableObject
     [Header("# Weapon")]
     [SerializeField]
     private GameObject projectile;
+    [SerializeField]
+    private Sprite hand;
 
     public GameObject GetProjectile
     {
         get {return projectile;}
+    }
+
+    public Sprite GetHand
+    {
+        get {return hand;}
     }
 
 }
