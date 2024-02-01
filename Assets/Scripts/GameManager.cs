@@ -114,7 +114,8 @@ public class GameManager : MonoBehaviour
     {
         exp++;
 
-        if(exp == nextExp[level])
+        // Mathf.Min(level, nextExp.Length - 1) => 최대 레벨이 됐다면 최대 레벨만 출력
+        if(exp == nextExp[Mathf.Min(level, nextExp.Length - 1)])
         {
             level++;
             exp = 0;
