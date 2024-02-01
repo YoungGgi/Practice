@@ -40,6 +40,9 @@ public class Enemy : MonoBehaviour
     // 해당 값들(rigid.position + nextVec)을 토대로 물리 연산
     private void FixedUpdate() 
     {
+        if(!GameManager.instance.GetIsLive)
+          return;
+        
         // GetCurrentAnimatorStateInfo() => 현재 작동 중인 애니메이터의 상태 확인, 매개변수로 애니메이터의 레이어(base layer = 0)
         // .IsName() => 현재 작동중인 애니메이션의 이름 입력
         if(!isLive || anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
@@ -54,6 +57,9 @@ public class Enemy : MonoBehaviour
 
     private void LateUpdate() 
     {
+        if(!GameManager.instance.GetIsLive)
+          return;
+        
         if(!isLive)
           return;
         

@@ -15,6 +15,12 @@ public class Item : MonoBehaviour
     [SerializeField]
     private Gear gear;
 
+    public int GetLevel
+    { get {return level;}}
+
+    public ItemData GetData
+    { get {return data;}}
+
     Image icon;
     TextMeshProUGUI textLevel;
     TextMeshProUGUI textName;
