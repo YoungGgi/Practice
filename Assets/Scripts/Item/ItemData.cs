@@ -15,6 +15,7 @@ public class ItemData : ScriptableObject
     [SerializeField]
     private string itemName;
     [SerializeField]
+    [TextArea]
     private string itemDesc;
     [SerializeField]
     private Sprite itemIcon;
