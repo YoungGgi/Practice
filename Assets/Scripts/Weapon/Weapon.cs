@@ -113,6 +113,11 @@ public class Weapon : MonoBehaviour
                 break;
         }
 
+        // Hand
+        Hand hand = player.GetHands[(int)data.itemType];
+        hand.GetSprite.sprite = data.GetHand;
+        hand.gameObject.SetActive(true);
+
         // BroadcastMessage() => 특정 메소드 호출을 모든 자식에게 방송하는 메소드
         // SendMessageOptions.DontRequireReceiver => 꼭 리시버가 필요하지 않음 => 장갑, 장화가 없을때 해당 메소드를 반드시 방송할 필요 없다?
         player.BroadcastMessage("ApplyGear", SendMessageOptions.DontRequireReceiver);
