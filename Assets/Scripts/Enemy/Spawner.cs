@@ -24,6 +24,9 @@ public class Spawner : MonoBehaviour
     // CeilToInt = 소수점 아래를 올리고 int형으로 변환
     private void Update() 
     {
+        if(!GameManager.instance.GetIsLive)
+          return;
+        
         timer += Time.deltaTime;
         level = Mathf.Min(Mathf.FloorToInt(GameManager.instance.GameTime / 10f), spawnData.Length - 1);
 

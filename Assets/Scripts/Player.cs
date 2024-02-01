@@ -24,9 +24,7 @@ public class Player : MonoBehaviour
         set {inputVec = value;}
     }
     public Scanner Scan
-    {
-        get {return scanner;}
-    }
+    { get {return scanner;} }
     
     public float GetPlayerSpeed
     {
@@ -35,9 +33,7 @@ public class Player : MonoBehaviour
     }
 
     public Hand[] GetHands
-    {
-        get {return hands;}
-    }
+    { get {return hands;} }
 
 
     Rigidbody2D rigid;
@@ -56,12 +52,18 @@ public class Player : MonoBehaviour
     // 인풋 시스템 메소드
     void OnMove(InputValue value)
     {
+        if(!GameManager.instance.GetIsLive)
+          return;
+        
         inputVec = value.Get<Vector2>();
     }
 
 
     private void FixedUpdate() 
     {
+        if(!GameManager.instance.GetIsLive)
+          return;
+        
         Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
         
         rigid.MovePosition(rigid.position + nextVec);
@@ -69,8 +71,10 @@ public class Player : MonoBehaviour
 
     private void LateUpdate()
     {
-        anim.SetFloat("Speed", inputVec.magnitude);
+        if(!GameManager.instance.GetIsLive)
+          return;
         
+        anim.SetFloat("Speed", inputVec.magnitude);
         
         if(inputVec.x != 0)
         {

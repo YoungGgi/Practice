@@ -10,17 +10,21 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Player player;
 
-    public Player GetPlayer
-    {
-        get{ return player;}
-    }
-
     [SerializeField]
     private PoolManager pool;
 
+    [SerializeField]
+    private LevelUp uiLevelUp;
+
+    public Player GetPlayer
+    { get{ return player;} }
+
     public PoolManager GetPool
+    {  get{ return pool; } }
+
+    public LevelUp GetUiLevelUp
     {
-        get{ return pool; } 
+        get {return uiLevelUp;}
     }
 
     [Header("# Game Control")]
@@ -28,16 +32,17 @@ public class GameManager : MonoBehaviour
     private float gameTime;
     [SerializeField]
     private float maxGameTime = 2 * 10f;
+    [SerializeField]
+    private bool isLive;
 
     public float GameTime
-    {
-        get {return gameTime;}
-    }
+    { get {return gameTime;} }
 
     public float MaxGameTime
-    {
-        get {return maxGameTime;}
-    }
+    { get {return maxGameTime;}}
+
+    public bool GetIsLive
+    { get {return isLive;}}
     
 
     [Header("# Player Control")]
@@ -62,30 +67,23 @@ public class GameManager : MonoBehaviour
     }
 
     public int GetMaxHealth
-    {
-        get {return maxHealth;}
-    }
+    {get {return maxHealth;} }
 
     public int GetLevel
-    {
-        get {return level;}
-    }
+    { get {return level;}}
     
     public int Get_Exp
-    {
-        get {return exp;}
-    }
+    { get {return exp;} }
 
     public int GetKill
-    {
-        get {return kill;}
-        set {kill = value;}
-    }
+    {   get {return kill;}
+        set {kill = value;}}
 
     public int[] GetNextExp
-    {
-        get {return nextExp;}
-    }
+    { get {return nextExp;}}
+
+
+
 
     private void Awake() 
     {
@@ -95,10 +93,15 @@ public class GameManager : MonoBehaviour
     private void Start() 
     {
         health = maxHealth;
+
+        uiLevelUp.Select(0);
     }
 
     private void Update() 
     {
+        if(!isLive)
+           return;
+        
         gameTime += Time.deltaTime;
 
         if(gameTime > maxGameTime)
@@ -115,9 +118,20 @@ public class GameManager : MonoBehaviour
         {
             level++;
             exp = 0;
-
+            uiLevelUp.Show();
         }
     }
 
+    public void Stop()
+    {
+        isLive = false;
+        Time.timeScale = 0;
+    }
+
+    public void Resume()
+    {
+        isLive = true;
+        Time.timeScale = 1;
+    }
 
 }
