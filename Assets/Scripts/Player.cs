@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private Hand[] hands;
+    [SerializeField]
+    private RuntimeAnimatorController[] animCon;
 
     public Vector2 GetInputVec
     {
@@ -49,6 +51,12 @@ public class Player : MonoBehaviour
         hands = GetComponentsInChildren<Hand>(true);  // 비활성화된 오브젝트 or 컴포넌트를 초기화, 그리고 활성화
     }
 
+    private void OnEnable() 
+    {
+        speed *= Character.Speed;
+        anim.runtimeAnimatorController = animCon[GameManager.instance.GetPlayerID];
+    }
+
     // 인풋 시스템 메소드
     void OnMove(InputValue value)
     {
@@ -79,6 +87,26 @@ public class Player : MonoBehaviour
         if(inputVec.x != 0)
         {
             spriter.flipX = (inputVec.x < 0) ? true : false;
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D other) {
+        if(!GameManager.instance.GetIsLive)
+            return;
+
+        GameManager.instance.GetHealth -= Time.deltaTime * 10;
+
+        if(GameManager.instance.GetHealth < 0)
+        {
+            for(int i = 2; i < transform.childCount; i++)
+            {
+                // GetChild() => 주어진 인덱스의 자식 오브젝트를 반환
+                transform.GetChild(i).gameObject.SetActive(false);
+            }
+
+            anim.SetTrigger("Dead");
+            GameManager.instance.GameOver();
+
         }
     }
 }

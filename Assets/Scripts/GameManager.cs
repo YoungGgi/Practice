@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private LevelUp uiLevelUp;
+
+    [SerializeField]
+    private Result uiResult;
+    [SerializeField]
+    private GameObject enemyCleaner;
 
     public Player GetPlayer
     { get{ return player;} }
@@ -47,9 +53,11 @@ public class GameManager : MonoBehaviour
 
     [Header("# Player Control")]
     [SerializeField]
-    private int health;
+    private int playerID;
     [SerializeField]
-    private int maxHealth = 100;
+    private float health;
+    [SerializeField]
+    private float maxHealth = 100;
     [SerializeField]
     private int level;
     [SerializeField]
@@ -59,14 +67,16 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int[] nextExp = {3, 5, 10, 100, 150, 210, 280, 360, 450, 600};
 
+    public int GetPlayerID
+    { get {return playerID;}}
 
-    public int GetHealth
+    public float GetHealth
     {
         get {return health;}
         set {health = value;}
     }
 
-    public int GetMaxHealth
+    public float GetMaxHealth
     {get {return maxHealth;} }
 
     public int GetLevel
@@ -90,11 +100,51 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-    private void Start() 
+    public void GameStart(int id) 
     {
+        playerID = id;
         health = maxHealth;
+        
+        player.gameObject.SetActive(true);
+        uiLevelUp.Select(playerID % 2);    // 무기 장착
+        Resume();
+    }
 
-        uiLevelUp.Select(0);
+    public void GameOver()
+    {
+        StartCoroutine(GameOverRoutine());
+    }
+
+    IEnumerator GameOverRoutine()
+    {
+        isLive = false;
+        yield return new WaitForSeconds(0.5f);
+
+        uiResult.gameObject.SetActive(true);
+        uiResult.Lose();
+        Stop();
+    }
+
+    public void GameWin()
+    {
+        StartCoroutine(GameWinRoutine());
+    }
+
+    IEnumerator GameWinRoutine()
+    {
+        isLive = false;
+        enemyCleaner.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        uiResult.gameObject.SetActive(true);
+        uiResult.Win();
+        Stop();
+    }
+
+    public void GameRetry()
+    {
+        SceneManager.LoadScene(0);
     }
 
     private void Update() 
@@ -107,11 +157,15 @@ public class GameManager : MonoBehaviour
         if(gameTime > maxGameTime)
         {
             gameTime = maxGameTime;
+            GameWin();
         }
     }
 
     public void GetExp()
     {
+        if(!isLive)
+            return;
+        
         exp++;
 
         // Mathf.Min(level, nextExp.Length - 1) => 최대 레벨이 됐다면 최대 레벨만 출력

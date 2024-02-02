@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,10 +51,12 @@ public class Gear : MonoBehaviour
             switch(weapon.GetWeaponID)
             {
                 case 0:
-                    weapon.GetWeaponSpeed = 150 + (150 * rate);
+                    float speed = 150 * Character.WeaponSpeed;
+                    weapon.GetWeaponSpeed = speed + (speed * rate);
                     break;
                 default:
-                    weapon.GetWeaponSpeed = 0.5f * (1f - rate);
+                    speed = 0.5f * Character.WeaponSpeed;
+                    weapon.GetWeaponSpeed = speed * (1f - rate);
                     break;
             }
         }
@@ -62,7 +65,7 @@ public class Gear : MonoBehaviour
     // 장화 전용, 이동속도 증가
     void SpeedUp()
     {
-        float speed = 3;
+        float speed = 3 * Character.Speed;
         GameManager.instance.GetPlayer.GetPlayerSpeed = speed + speed * rate;
     }
 
