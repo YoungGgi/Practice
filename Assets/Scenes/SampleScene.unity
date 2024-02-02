@@ -3358,6 +3358,7 @@ MonoBehaviour:
   gameTime: 0
   maxGameTime: 20
   isLive: 0
+  playerID: 0
   health: 0
   maxHealth: 100
   level: 0
@@ -4349,7 +4350,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC774\uB3D9\uC18D\uB3C4 10% \uC99D\uAC00"
+  m_text: "\uC5F0\uC0AC\uC18D\uB3C4 10% \uC99D\uAC00"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f26c2ffed29a5d94daec29cf199d388b, type: 2}
   m_sharedMaterial: {fileID: -9103353573352450813, guid: f26c2ffed29a5d94daec29cf199d388b, type: 2}
@@ -4540,7 +4541,7 @@ MonoBehaviour:
       - m_Target: {fileID: 575996807}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: GameStart
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -13761,7 +13762,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1072563678
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13887,6 +13888,11 @@ MonoBehaviour:
   scanner: {fileID: 0}
   speed: 3
   hands: []
+  animCon:
+  - {fileID: 9100000, guid: ac013d0f2ac23c94688552cd23573225, type: 2}
+  - {fileID: 22100000, guid: 13199a31132f8cb4dbe2a8fa29a359e0, type: 2}
+  - {fileID: 22100000, guid: d1ce7476b125bef40b9bf6eabb8d9459, type: 2}
+  - {fileID: 22100000, guid: 87ce0c2ed7182af419607163fa3ff40d, type: 2}
 --- !u!114 &1072563683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25510,11 +25516,11 @@ MonoBehaviour:
       - m_Target: {fileID: 575996807}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: GameStart
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1

@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private Hand[] hands;
+    [SerializeField]
+    private RuntimeAnimatorController[] animCon;
 
     public Vector2 GetInputVec
     {
@@ -47,6 +49,12 @@ public class Player : MonoBehaviour
         spriter = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         hands = GetComponentsInChildren<Hand>(true);  // 비활성화된 오브젝트 or 컴포넌트를 초기화, 그리고 활성화
+    }
+
+    private void OnEnable() 
+    {
+        speed *= Character.Speed;
+        anim.runtimeAnimatorController = animCon[GameManager.instance.GetPlayerID];
     }
 
     // 인풋 시스템 메소드

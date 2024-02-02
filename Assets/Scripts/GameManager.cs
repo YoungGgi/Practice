@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour
 
     [Header("# Player Control")]
     [SerializeField]
+    private int playerID;
+    [SerializeField]
     private float health;
     [SerializeField]
     private float maxHealth = 100;
@@ -65,6 +67,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int[] nextExp = {3, 5, 10, 100, 150, 210, 280, 360, 450, 600};
 
+    public int GetPlayerID
+    { get {return playerID;}}
 
     public float GetHealth
     {
@@ -96,11 +100,13 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-    public void GameStart() 
+    public void GameStart(int id) 
     {
+        playerID = id;
         health = maxHealth;
-
-        uiLevelUp.Select(0);
+        
+        player.gameObject.SetActive(true);
+        uiLevelUp.Select(playerID % 2);    // 무기 장착
         Resume();
     }
 
