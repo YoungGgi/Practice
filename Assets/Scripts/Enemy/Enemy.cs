@@ -100,6 +100,7 @@ public class Enemy : MonoBehaviour
         if(health > 0)
         {
             anim.SetTrigger("Hit");
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Hit);
         }
         else
         {
@@ -110,6 +111,9 @@ public class Enemy : MonoBehaviour
             anim.SetBool("Dead", true);
             GameManager.instance.GetKill++;
             GameManager.instance.GetExp();
+            
+            if(GameManager.instance.GetIsLive)
+                AudioManager.instance.PlaySfx(AudioManager.Sfx.Dead);
         }
 
     }
