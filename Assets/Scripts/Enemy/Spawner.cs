@@ -11,6 +11,8 @@ public class Spawner : MonoBehaviour
     [SerializeField]
     private SpawnData[] spawnData;
 
+    [SerializeField]
+    private float levelTime;
     int level;
     float timer;
 
@@ -18,6 +20,7 @@ public class Spawner : MonoBehaviour
     // 자식 오브젝트들 초기화
     private void Awake() {
         spawnPoint = GetComponentsInChildren<Transform>();
+        levelTime = GameManager.instance.MaxGameTime / spawnData.Length;
     }
     
     // FloorToInt = 소수점 아래는 버리고 int형으로 변환
@@ -28,7 +31,7 @@ public class Spawner : MonoBehaviour
           return;
         
         timer += Time.deltaTime;
-        level = Mathf.Min(Mathf.FloorToInt(GameManager.instance.GameTime / 10f), spawnData.Length - 1);
+        level = Mathf.Min(Mathf.FloorToInt(GameManager.instance.GameTime / levelTime), spawnData.Length - 1);
 
         if(timer > spawnData[level].SpawnTime)
         {

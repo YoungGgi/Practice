@@ -27,28 +27,38 @@ public class Bullet : MonoBehaviour
         this.damage = damage;
         this.per = per;
 
-        if(per > -1)
+        if(per >= 0)
         {
             rigid.velocity = dir * 15f;
         }
         
     }
 
-    // per == -1(근접 무기일 때) - 해당 메소드 건너뜀
+    // per == -100(근접 무기일 때) - 해당 메소드 건너뜀
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        if(!other.CompareTag("Enemy") || per == -1)
+        if(!other.CompareTag("Enemy") || per == -100)
         {
             return;
         }
 
         per--;
 
-        if(per == -1)
+        if(per >= 0)
         {
             rigid.velocity = Vector2.zero;
             gameObject.SetActive(false);
         }
 
+    }
+
+    private void OnTriggerExit2D(Collider2D other) 
+    {
+        if(!other.CompareTag("Area") || per == 100)
+        {
+            return;
+        }
+
+        gameObject.SetActive(false);
     }
 }

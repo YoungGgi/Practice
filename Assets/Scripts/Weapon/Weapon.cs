@@ -150,7 +150,7 @@ public class Weapon : MonoBehaviour
             bullet.Rotate(rotVec);
             bullet.Translate(bullet.up * 1.5f, Space.World); // 자신의 위치에서 1.5 위로, 월드 방향으로 이동
 
-            bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero);  // -1은 무한을 의미
+            bullet.GetComponent<Bullet>().Init(damage, -100, Vector3.zero);  // -100은 무한을 의미
 
             AudioManager.instance.PlaySfx(AudioManager.Sfx.Melee);
         }
