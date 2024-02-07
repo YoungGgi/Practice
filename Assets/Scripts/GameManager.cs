@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Result uiResult;
     [SerializeField]
+    private Transform uiJoy;
+    [SerializeField]
     private GameObject enemyCleaner;
 
     public Player GetPlayer
@@ -156,6 +158,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void GameQuit()
+    {
+        Application.Quit();
+    }
+
     private void Update() 
     {
         if(!isLive)
@@ -190,12 +197,14 @@ public class GameManager : MonoBehaviour
     {
         isLive = false;
         Time.timeScale = 0;
+        uiJoy.localScale = Vector3.zero;
     }
 
     public void Resume()
     {
         isLive = true;
         Time.timeScale = 1;
+        uiJoy.localScale = Vector3.one;
     }
 
 }
